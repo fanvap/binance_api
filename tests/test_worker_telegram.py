@@ -114,22 +114,55 @@ class TelegramWorkerIntegrationTests(unittest.TestCase):
                 mode="simulation",
                 candle_intervals=("1m", "15m"),
             )
-        candle = Candle(1, 100, 101, 99, 100)
+        candles = [
+            Candle(1, 100, 101, 99, 100),
+            Candle(2, 100, 102, 99, 101),
+        ]
         candle_cache = {}
 
         with patch.object(
-            worker._market_data, "get_closed_candles", return_value=[candle]
-        ) as get_closed_candles:
+            worker._market_data, "get_candles", return_value=candles
+        ) as get_candles:
             worker._refresh_candles(
                 [{"symbol": "BTCUSDT"}], candle_cache, ("1m", "15m")
             )
 
-        self.assertEqual(get_closed_candles.call_count, 2)
+        self.assertEqual(get_candles.call_count, 2)
         self.assertTrue(
-            all(call.args[2] == 3 for call in get_closed_candles.call_args_list)
+            all(call.args[2] == 3 for call in get_candles.call_args_list)
         )
-        self.assertEqual(candle_cache["BTCUSDT"]["1m"], [candle])
-        self.assertEqual(candle_cache["BTCUSDT"]["15m"], [candle])
+        self.assertEqual(candle_cache["BTCUSDT"]["1m"], candles)
+        self.assertEqual(candle_cache["BTCUSDT"]["15m"], candles)
+
+    def test_worker_updates_active_candle_and_ignores_stale_candle_pairs(self):
+        with patch.dict(os.environ, {}, clear=True):
+            worker = MarketScannerWorker(
+                mode="simulation",
+                candle_intervals=("1m",),
+            )
+        previous = Candle(60_000, 99, 100, 98, 99, close_time=119_999)
+        active = Candle(120_000, 99, 101, 98, 100, close_time=179_999)
+        candle_cache = {"BTCUSDT": {"1m": [previous, active]}}
+
+        worker._update_live_candles(
+            candle_cache, {"BTCUSDT": 103}, current_time_ms=125_000
+        )
+
+        self.assertEqual(candle_cache["BTCUSDT"]["1m"][0], previous)
+        updated = candle_cache["BTCUSDT"]["1m"][-1]
+        self.assertEqual((updated.high, updated.low, updated.close), (103, 98, 103))
+        self.assertEqual(
+            worker._current_candle_pair(
+                candle_cache, "BTCUSDT", "1m", current_time_ms=125_000
+            ),
+            (previous, updated),
+        )
+        self.assertEqual(
+            worker._current_candle_pair(
+                candle_cache, "BTCUSDT", "1m", current_time_ms=180_000
+            ),
+            (),
+        )
 
     def test_strategy_trade_telegram_message_names_strategy_and_timeframe(self):
         with patch.dict(
