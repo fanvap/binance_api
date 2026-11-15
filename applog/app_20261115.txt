@@ -1,0 +1,707 @@
+[2026-11-15 08:58:27] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 08:58:29] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 08:58:30] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 08:58:30] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 08:58:31] [SUCCESS] Đã lọc 90 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 08:58:31] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 08:58:33] [SUCCESS] SIMULATION: mở SHORT FRAXUSDT với notional 100.00 USDT.
+[2026-11-15 08:58:33] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:58:35] [WARN] Đã yêu cầu dừng cập nhật.
+[2026-11-15 08:58:36] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 08:58:36] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 08:58:37] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 08:58:37] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 08:58:37] [SUCCESS] Đã lọc 90 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 08:58:37] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 08:58:38] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 08:58:39] [SUCCESS] SIMULATION: mở SHORT FRAXUSDT với notional 100.00 USDT.
+[2026-11-15 08:58:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:58:45] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:58:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:58:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:59:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:59:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 08:59:06] [WARN] Đã yêu cầu dừng cập nhật.
+[2026-11-15 08:59:07] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 09:03:26] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 09:03:27] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 09:03:28] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:03:29] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:03:29] [WARN] Không gửi được thông báo Telegram tới user 8844438462: Telegram HTTP 403: bot không được phép nhắn tới user này. Mở đúng bot, gửi /start và kiểm tra bot chưa bị chặn. Chi tiết Telegram: Forbidden: the bot can't send messages to the bot
+[2026-11-15 09:03:29] [SUCCESS] Đã lọc 89 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:03:29] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:03:31] [SUCCESS] SIMULATION: mở SHORT ZECUSDT với notional 100.00 USDT.
+[2026-11-15 09:03:31] [UPDATE] Đã cập nhật giá 89/89 hợp đồng.
+[2026-11-15 09:11:30] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 09:11:31] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:11:31] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:11:32] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:11:32] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:11:33] [SUCCESS] Đã lọc 90 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:11:33] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:11:35] [SUCCESS] SIMULATION: mở SHORT ZECUSDT với notional 100.00 USDT.
+[2026-11-15 09:11:35] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:11:40] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:11:45] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:11:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:11:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:11] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:12] [WARN] Đã yêu cầu dừng cập nhật.
+[2026-11-15 09:12:13] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:12:16] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:12:17] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:12:17] [SUCCESS] Đã lọc 90 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:12:17] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:12:17] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:12:19] [SUCCESS] SIMULATION: mở SHORT ZECUSDT với notional 100.00 USDT.
+[2026-11-15 09:12:19] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:24] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:29] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:49] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:12:54] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:10] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:21] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:26] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:32] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:37] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:42] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:47] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:52] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:13:57] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:02] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:07] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:12] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:24] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:29] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:49] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:14:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:10] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:20] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:26] [SUCCESS] SIMULATION: tín hiệu ngược chiều, đóng ZECUSDT; PnL đã chốt +0.2651 USDT.
+[2026-11-15 09:15:26] [SUCCESS] SIMULATION: mở LONG PYTHUSDT với notional 100.00 USDT.
+[2026-11-15 09:15:26] [SUCCESS] SIMULATION: mở LONG FRAXUSDT với notional 100.00 USDT.
+[2026-11-15 09:15:26] [SUCCESS] SIMULATION: mở LONG IMXUSDT với notional 100.00 USDT.
+[2026-11-15 09:15:26] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:32] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:35] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 09:15:36] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:15:37] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:42] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:47] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:50] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:15:51] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:15:51] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:15:52] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:15:52] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:15:52] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:54] [SUCCESS] SIMULATION: mở LONG ZECUSDT với notional 100.00 USDT.
+[2026-11-15 09:15:54] [SUCCESS] SIMULATION: mở LONG PYTHUSDT với notional 100.00 USDT.
+[2026-11-15 09:15:54] [SUCCESS] SIMULATION: mở LONG FRAXUSDT với notional 100.00 USDT.
+[2026-11-15 09:15:54] [SUCCESS] SIMULATION: bỏ qua IMXUSDT; đã đạt giới hạn 3 vị thế mở.
+[2026-11-15 09:15:54] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:15:57] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:15:59] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:02] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:04] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:08] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:09] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:13] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:15] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:20] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:25] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:29] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:30] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:35] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:40] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:45] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:45] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:50] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:16:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:16:57] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:02] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:06] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:07] [SUCCESS] Telegram /help: Trong Simulation, Telegram chỉ gửi thông báo và PnL; các lệnh truy vấn/điều khiển từ xa chỉ khả dụng ở Binance Testnet. Gửi /help khi chạy Testnet để xem danh sách.
+[2026-11-15 09:17:07] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:11] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:12] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:16] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:18] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:21] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:23] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:26] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:28] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:32] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:33] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:38] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:38] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:43] [SUCCESS] SIMULATION: chốt lời IMXUSDT; PnL đã chốt +1.0420 USDT.
+[2026-11-15 09:17:43] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:43] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:48] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:48] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:53] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:17:53] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:17:58] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:00] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:03] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:05] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:08] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:10] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:13] [SUCCESS] SIMULATION: chốt lời PYTHUSDT; PnL đã chốt +1.0827 USDT.
+[2026-11-15 09:18:13] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:15] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:20] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:24] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:25] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:29] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:30] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:35] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:36] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:40] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:41] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:45] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:46] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:51] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:18:56] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:18:56] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:19:01] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:03] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:19:06] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:11] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:14] [WARN] Đã yêu cầu dừng cập nhật.
+[2026-11-15 09:19:15] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:19:21] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:19:21] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:19:21] [SUCCESS] Đã lọc 90 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:19:21] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:19:22] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:19:23] [SUCCESS] SIMULATION: mở LONG ZECUSDT với notional 100.00 USDT.
+[2026-11-15 09:19:23] [SUCCESS] SIMULATION: mở LONG PYTHUSDT với notional 100.00 USDT.
+[2026-11-15 09:19:23] [SUCCESS] SIMULATION: mở LONG FRAXUSDT với notional 100.00 USDT.
+[2026-11-15 09:19:23] [SUCCESS] SIMULATION: mở LONG IMXUSDT với notional 100.00 USDT.
+[2026-11-15 09:19:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:28] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:49] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:54] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:19:59] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:04] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:09] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:20] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:26] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:31] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:36] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:41] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:46] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:52] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:20:57] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:02] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:07] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:12] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:17] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:29] [SUCCESS] SIMULATION: chốt lời ZECUSDT; PnL đã chốt +1.0737 USDT.
+[2026-11-15 09:21:29] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:49] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:21:54] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:10] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:20] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:25] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:32] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:37] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:42] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:47] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:52] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:22:57] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:02] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:07] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:12] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:28] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:49] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:23:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:10] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:20] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:25] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:30] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:37] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:42] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:47] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:52] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:24:57] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:02] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:07] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:13] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:28] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:33] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:25:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:10] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:20] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:25] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:30] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:36] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:42] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:47] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:52] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:26:57] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:02] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:08] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:13] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:28] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:33] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:38] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:45] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:27:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:00] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:05] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:10] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:15] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:21] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:26] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:31] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:36] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:41] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:48] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:53] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:28:58] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:03] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:08] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:13] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:18] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:23] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:28] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:34] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:39] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:44] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:50] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:29:55] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:01] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:06] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:11] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:16] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:21] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:26] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:31] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:37] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:42] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:47] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG XRPUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG HYPEUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG LINKUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG XLMUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG NEARUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG UNIUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG XAUTUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG WLFIUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG PAXGUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG KASUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG ALGOUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG VVVUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG CAKEUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG WLDUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở SHORT AKEUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG SPXUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG ETHFIUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG GRTUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG ARUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG JASMYUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG STRKUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG THETAUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG SUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [SUCCESS] SIMULATION: mở LONG AUSDT với notional 100.00 USDT.
+[2026-11-15 09:30:53] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:30:58] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:31:04] [SUCCESS] SIMULATION: chốt lời AKEUSDT; PnL đã chốt +1.0814 USDT.
+[2026-11-15 09:31:04] [UPDATE] Đã cập nhật giá 90/90 hợp đồng.
+[2026-11-15 09:33:05] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 09:33:07] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:33:10] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:33:11] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:33:11] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:33:12] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:33:12] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG XRPUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG HYPEUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG LINKUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG XLMUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG NEARUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG UNIUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG XAUTUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG WLFIUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG PAXGUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG KASUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG ALGOUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG VVVUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG CAKEUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG WLDUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG SPXUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở SHORT AKEUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG ETHFIUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG GRTUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG ARUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: mở LONG JASMYUSDT với notional 50.00 USDT.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: bỏ qua STRKUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: bỏ qua THETAUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: bỏ qua SUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:33:14] [SUCCESS] SIMULATION: bỏ qua AUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:33:14] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:33:19] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:33:24] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:33:29] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:33:34] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:33:40] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:38:42] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 09:38:43] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:38:52] [ERROR] Testnet bị khóa. Đặt BINANCE_TESTNET_TRADING_ENABLED=true để mở.
+[2026-11-15 09:39:03] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:39:04] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:39:05] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:39:06] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:39:06] [INFO] Strategy: EMA 9/21 + RSI 14; khung nến 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG XRPUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG HYPEUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG LINKUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG XLMUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG NEARUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG UNIUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG XAUTUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG WLFIUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG PAXGUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG KASUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG ALGOUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG VVVUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG CAKEUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG WLDUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG SPXUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở SHORT AKEUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG ETHFIUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG GRTUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG ARUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: mở LONG JASMYUSDT với notional 50.00 USDT.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: bỏ qua STRKUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: bỏ qua THETAUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: bỏ qua SUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:39:08] [SUCCESS] SIMULATION: bỏ qua AUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 09:39:08] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:39:13] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:39:18] [SUCCESS] SIMULATION: dừng lỗ AKEUSDT; PnL đã chốt -0.6316 USDT.
+[2026-11-15 09:39:18] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:39:23] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:39:28] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:39:33] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:39:38] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:52:30] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 09:52:32] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:52:46] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 09:52:47] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 09:52:47] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 09:52:48] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 09:52:48] [INFO] Strategy: short_p; khung nến 1m, 3m, 5m, 15m, 1h, 4h; chế độ: SimulationExecutionMode.
+[2026-11-15 09:52:57] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:53:03] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 09:53:08] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:12:34] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 10:12:36] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:12:36] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 10:12:37] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 10:12:38] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:12:39] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 10:12:39] [INFO] Strategy: short_p; khung nến 1m, 3m, 5m, 15m, 1h, 4h; chế độ: SimulationExecutionMode.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT QNTUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT JSTUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT PAXGUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT ETCUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT CAKEUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT ZROUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [SUCCESS] SIMULATION: mở SHORT JASMYUSDT với notional 50.00 USDT.
+[2026-11-15 10:12:47] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:12:53] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:12:58] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:13:04] [SUCCESS] SIMULATION: mở SHORT AWEUSDT với notional 50.00 USDT.
+[2026-11-15 10:13:04] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:28:14] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 10:28:15] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:28:19] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 10:28:19] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 10:28:20] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:28:21] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 10:28:21] [INFO] Strategy: short_p; khung nến 1m, 3m, 5m, 15m, 1h, 4h; chế độ: SimulationExecutionMode.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT XRPUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT TRXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT LINKUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT NEARUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT AVAXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT XAUTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT WLFIUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT PAXGUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT ONDOUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT ETCUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT ASTERUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT KASUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT ALGOUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT MORPHOUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT CAKEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT WLDUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT VETUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT ZROUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT PYTHUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: mở SHORT FRAXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua TIAUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua ETHFIUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua LDOUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua IMXUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua TRUMPUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua RUNEUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua OPUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua ENSUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua BATUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua SYRUPUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua AXSUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua AUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [SUCCESS] SIMULATION: bỏ qua JTOUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:28:29] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:28:35] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:28:40] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:28:45] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:28:50] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:28:55] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:29:01] [SUCCESS] SIMULATION: bỏ qua APTUSDT; đã đạt giới hạn 20 vị thế mở.
+[2026-11-15 10:29:01] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:29:07] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:29:12] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:57:19] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 10:57:21] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:57:21] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 10:57:22] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 10:57:23] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:57:24] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 10:57:24] [INFO] Strategy: short_p; khung nến 1m, 3m, 5m, 15m, 1h, 4h; chế độ: SimulationExecutionMode.
+[2026-11-15 10:57:24] [WARN] Đã yêu cầu dừng cập nhật.
+[2026-11-15 10:57:25] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT ETHUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT BNBUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT ZECUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT DOGEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT ADAUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT UNIUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT AVAXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT QNTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT ENAUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT STXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT DASHUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT FILUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT PYTHUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT APTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT FRAXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT RUNEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT OPUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT BATUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT AKTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [SUCCESS] SIMULATION: mở SHORT WIFUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:34] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:57:42] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 10:57:43] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 10:57:43] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 10:57:43] [INFO] Strategy: short_p; khung nến 3m, 5m, 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 10:57:43] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT ETHUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT BNBUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT ZECUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT DOGEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT ADAUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT UNIUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT ENAUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT STXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT DASHUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT FILUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT APTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT FRAXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT RUNEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT OPUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT AKTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [SUCCESS] SIMULATION: mở SHORT WIFUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 10:57:47] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:57:52] [INFO] Mở cửa sổ chart cho ETHUSDT.
+[2026-11-15 10:57:53] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:57:58] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:03] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:08] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:13] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:18] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:23] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:28] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:33] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:39] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:44] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:49] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:54] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:58:59] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:04] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:09] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:14] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:19] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:25] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:30] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:35] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:40] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:45] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:50] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 10:59:55] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:09] [SUCCESS] SIMULATION: mở SHORT PAXGUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:00:09] [SUCCESS] SIMULATION: mở SHORT STABLEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:00:09] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:14] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:19] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:24] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:29] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:34] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:40] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:44] [READY] Dashboard sẵn sàng. Nhấn Bắt đầu quét để tải thị trường. Log: D:\vibe codig\binance_api\applog
+[2026-11-15 11:00:45] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:46] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 11:00:50] [INFO] Đang tải hợp đồng Binance Futures USDT...
+[2026-11-15 11:00:50] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:50] [INFO] Giá và hợp đồng ưu tiên Binance; market cap lấy CoinLore trước, CoinGecko dự phòng. Ticker trùng bị loại.
+[2026-11-15 11:00:51] [INFO] Đã gửi thông báo Telegram tới 1 tài khoản.
+[2026-11-15 11:00:51] [SUCCESS] Đã lọc 91 hợp đồng trên tổng 522 hợp đồng.
+[2026-11-15 11:00:51] [INFO] Strategy: short_p; khung nến 3m, 5m, 15m; chế độ: SimulationExecutionMode.
+[2026-11-15 11:00:55] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:00:56] [SUCCESS] SIMULATION: mở SHORT PAXGUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:00:56] [SUCCESS] SIMULATION: mở SHORT STABLEUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:00:56] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:00] [SUCCESS] SIMULATION: dừng lỗ ZECUSDT; PnL đã chốt -1.0244 USDT.
+[2026-11-15 11:01:00] [SUCCESS] SIMULATION: dừng lỗ ENAUSDT; PnL đã chốt -1.0086 USDT.
+[2026-11-15 11:01:00] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:01] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:02] [INFO] Mở cửa sổ chart cho PAXGUSDT.
+[2026-11-15 11:01:05] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:06] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:10] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:11] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:15] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:16] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:21] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:21] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:26] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:26] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:31] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:32] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:36] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:37] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:38] [INFO] Mở cửa sổ chart cho STABLEUSDT.
+[2026-11-15 11:01:41] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:42] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:46] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:47] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:51] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:52] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:56] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:01:57] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:01] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:02] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:07] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:07] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:12] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:13] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:17] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:18] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:22] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:23] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:27] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:28] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:32] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:33] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:37] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:38] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:42] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:43] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:47] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:48] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:53] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:53] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:58] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:02:59] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: mở SHORT XRPUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: mở SHORT TRXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: mở SHORT QNTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: bỏ qua JSTUSDT; Vượt số tiền mô phỏng: cần ký quỹ 50.00 USDT nhưng số dư khả dụng chỉ còn 47.97 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: bỏ qua INJUSDT; Vượt số tiền mô phỏng: cần ký quỹ 50.00 USDT nhưng số dư khả dụng chỉ còn 47.97 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: bỏ qua MORPHOUSDT; Vượt số tiền mô phỏng: cần ký quỹ 50.00 USDT nhưng số dư khả dụng chỉ còn 47.97 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: bỏ qua BATUSDT; Vượt số tiền mô phỏng: cần ký quỹ 50.00 USDT nhưng số dư khả dụng chỉ còn 47.97 USDT.
+[2026-11-15 11:03:04] [SUCCESS] SIMULATION: bỏ qua SYRUPUSDT; Vượt số tiền mô phỏng: cần ký quỹ 50.00 USDT nhưng số dư khả dụng chỉ còn 47.97 USDT.
+[2026-11-15 11:03:04] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT XRPUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT TRXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT QNTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT JSTUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT INJUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT MORPHOUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT STXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT FRAXUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT BATUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [SUCCESS] SIMULATION: mở SHORT SYRUPUSDT ký quỹ 50.00 USDT, đòn bẩy x2, vị thế 100.00 USDT.
+[2026-11-15 11:03:05] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:09] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:10] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:14] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:15] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:20] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:20] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:25] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:25] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:30] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:31] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:36] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:41] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:46] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.
+[2026-11-15 11:03:51] [UPDATE] Đã cập nhật giá 91/91 hợp đồng.

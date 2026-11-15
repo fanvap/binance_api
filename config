@@ -1,0 +1,12 @@
+[core]
+	bare = true
+	repositoryformatversion = 0
+	filemode = false
+	symlinks = false
+	ignorecase = true
+[remote "master"]
+	url = git@github.com:fanvap/binance_api.git
+	fetch = +refs/heads/*:refs/remotes/master/*
+	pushurl = git@github.com:fanvap/binance_api.git
+[remote]
+	pushdefault = master
