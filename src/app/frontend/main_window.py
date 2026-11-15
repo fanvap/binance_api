@@ -61,6 +61,8 @@ class MainWindow(QMainWindow):
         self._close_after_telegram_notifications = False
         self._app_log = AppLogWriter(self._application_log_directory())
         self._app_log_error_reported = False
+        self._network_quality_checked = False
+        self._network_latency_ms: Optional[float] = None
         self.trade_statistics = StrategyTradeStatistics()
         self.market_caps_client = MarketCapClient()
         self.chart_windows: Dict[str, ChartWindow] = {}
@@ -173,6 +175,12 @@ class MainWindow(QMainWindow):
         )
         self.source_label.setObjectName("mutedLabel")
         toolbar.addWidget(self.source_label)
+        self.network_quality_label = QLabel("Mạng: chờ kiểm tra")
+        self.network_quality_label.setObjectName("mutedLabel")
+        self.network_quality_label.setToolTip(
+            "Chất lượng kết nối được ước lượng từ thời gian phản hồi Binance Futures."
+        )
+        toolbar.addWidget(self.network_quality_label)
         self.telegram_status_label = QLabel(
             "Telegram: chỉ bật khi đã cấu hình"
         )
@@ -270,8 +278,9 @@ class MainWindow(QMainWindow):
         self.strategy_selector.addItem("short_p", "short_p")
         self.strategy_selector.addItem("long_p", "long_p")
         self.strategy_selector.setToolTip(
-            "Chọn một chiến thuật để chạy; short_p chỉ tìm tín hiệu SHORT, "
-            "long_p chỉ tìm tín hiệu LONG."
+            "Chiến thuật được chọn là hướng vào lệnh. Khi vị thế chiến thuật đang mở, "
+            "ứng dụng theo dõi thêm tín hiệu ngược chiều trên cùng khung nến để đóng "
+            "bảo vệ sau khi nến vào lệnh kết thúc."
         )
         strategy_label.setBuddy(self.strategy_selector)
         timeframe_label = QLabel("KHUNG NẾN")
@@ -375,7 +384,7 @@ class MainWindow(QMainWindow):
         )
         self.positions_empty_label.setObjectName("emptyState")
         positions_layout.addWidget(self.positions_empty_label)
-        self.positions_table = QTableWidget(0, 11)
+        self.positions_table = QTableWidget(0, 12)
         self.positions_table.setHorizontalHeaderLabels(
             [
                 "HỢP ĐỒNG",
@@ -388,6 +397,7 @@ class MainWindow(QMainWindow):
                 "GIÁ HIỆN TẠI",
                 "KHỐI LƯỢNG",
                 "PNL CHƯA CHỐT (USDT)",
+                "RÂU/THÂN NẾN TRƯỚC",
                 "BIỂU ĐỒ",
             ]
         )
@@ -402,7 +412,7 @@ class MainWindow(QMainWindow):
         if positions_header is not None:
             positions_header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
             positions_header.setSectionResizeMode(
-                10, QHeaderView.ResizeMode.ResizeToContents
+                11, QHeaderView.ResizeMode.ResizeToContents
             )
         positions_layout.addWidget(self.positions_table, stretch=1)
         self.tabs.addTab(positions_page, "Lệnh đang mở (0)")
@@ -489,6 +499,8 @@ class MainWindow(QMainWindow):
         self.setStyleSheet(dashboard_stylesheet(mode))
         self.theme_button.setText("☀  Chế độ sáng" if mode == "dark" else "☾  Chế độ tối")
         self._recolor_tables()
+        if self._network_quality_checked:
+            self._render_network_quality()
         pnl_color = "#0ecb81" if self.open_pnl_value.text().startswith("+") else "#f6465d"
         self.open_pnl_value.setStyleSheet(f"color: {pnl_color};")
 
@@ -642,6 +654,7 @@ class MainWindow(QMainWindow):
         self.worker.account_summary_received.connect(self.set_account_summary)
         self.worker.source_received.connect(self.set_market_source)
         self.worker.telegram_status_received.connect(self.set_telegram_status)
+        self.worker.network_quality_received.connect(self.set_network_quality)
         self.worker.finished_with_status.connect(self._set_status)
         self.worker.finished.connect(self._worker_stopped)
         self.worker.start()
@@ -691,6 +704,14 @@ class MainWindow(QMainWindow):
 
     def set_positions(self, positions: List[PositionSnapshot]) -> None:
         """Refresh the open-position panel from a strategy or execution adapter."""
+        positions = sorted(
+            positions,
+            key=lambda position: (
+                position.wick_body_ratio is not None,
+                position.wick_body_ratio or 0.0,
+            ),
+            reverse=True,
+        )
         self.positions_table.setRowCount(len(positions))
         total_pnl = 0.0
         for row_index, position in enumerate(positions):
@@ -720,6 +741,18 @@ class MainWindow(QMainWindow):
             self._set_position_cell(row_index, 7, self._format_price(position.mark_price))
             self._set_position_cell(row_index, 8, f"{position.quantity:.8g}")
             self._set_position_cell(row_index, 9, f"{pnl:+,.4f}", pnl_color, True)
+            ratio_label = (
+                f"{position.wick_body_ratio:.2f}x"
+                if position.wick_body_ratio is not None
+                else "—"
+            )
+            self._set_position_cell(row_index, 10, ratio_label)
+            ratio_item = self.positions_table.item(row_index, 10)
+            if ratio_item is not None:
+                ratio_item.setToolTip(
+                    "Tỉ lệ râu thuận hướng/thân của nến đã đóng gần nhất "
+                    "trên khung nến của vị thế. Vị thế có tỉ lệ cao hơn đứng trước."
+                )
             chart_button = QPushButton("▥  Chart")
             chart_button.setObjectName("rowChartButton")
             chart_button.clicked.connect(
@@ -727,7 +760,7 @@ class MainWindow(QMainWindow):
                     self._open_chart_for_symbol(symbol)
                 )
             )
-            self.positions_table.setCellWidget(row_index, 10, chart_button)
+            self.positions_table.setCellWidget(row_index, 11, chart_button)
 
         self.open_positions_value.setText(str(len(positions)))
         self.open_pnl_value.setText(f"{total_pnl:+,.2f} USDT")
@@ -807,6 +840,35 @@ class MainWindow(QMainWindow):
 
     def set_market_source(self, source: str) -> None:
         self.source_label.setText(source)
+
+    def set_network_quality(self, latency_ms: Optional[float]) -> None:
+        self._network_quality_checked = True
+        self._network_latency_ms = latency_ms
+        self._render_network_quality()
+
+    def _render_network_quality(self) -> None:
+        latency_ms = self._network_latency_ms
+        if latency_ms is None:
+            label = "Mạng: mất kết nối"
+            color = "#f6465d"
+            tooltip = "Không nhận được phản hồi từ Binance Futures."
+        elif latency_ms <= 500:
+            label = f"Mạng: tốt · {latency_ms:.0f} ms"
+            color = "#0ecb81" if self.theme_manager.mode == "dark" else "#087f5b"
+            tooltip = "Độ trễ Binance Futures tốt (≤ 500 ms)."
+        elif latency_ms <= 1500:
+            label = f"Mạng: trung bình · {latency_ms:.0f} ms"
+            color = "#f0b90b" if self.theme_manager.mode == "dark" else "#9a6700"
+            tooltip = "Độ trễ Binance Futures trung bình (501–1500 ms)."
+        else:
+            label = f"Mạng: kém · {latency_ms:.0f} ms"
+            color = "#f6465d"
+            tooltip = "Độ trễ Binance Futures cao (> 1500 ms)."
+        self.network_quality_label.setText(label)
+        self.network_quality_label.setStyleSheet(
+            f"color: {color}; font-weight: 700;"
+        )
+        self.network_quality_label.setToolTip(tooltip)
 
     def set_telegram_status(self, status: str) -> None:
         self.telegram_status_label.setText(status)

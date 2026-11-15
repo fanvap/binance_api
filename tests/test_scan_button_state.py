@@ -70,6 +70,32 @@ class ScanButtonStateTests(unittest.TestCase):
         self.assertIn("Khung nến đang bật: 1m, 3m, 5m, 15m, 1h, 4h", message)
         self.assertIn("Thời gian:", message)
 
+    def test_network_quality_uses_colored_good_average_and_disconnected_states(self):
+        label = Mock()
+        window = SimpleNamespace(
+            network_quality_label=label,
+            theme_manager=SimpleNamespace(mode="dark"),
+        )
+        window._render_network_quality = lambda: MainWindow._render_network_quality(
+            window
+        )
+
+        MainWindow.set_network_quality(window, 250)
+        self.assertIn("tốt", label.setText.call_args.args[0])
+        self.assertIn("#0ecb81", label.setStyleSheet.call_args.args[0])
+
+        MainWindow.set_network_quality(window, 900)
+        self.assertIn("trung bình", label.setText.call_args.args[0])
+        self.assertIn("#f0b90b", label.setStyleSheet.call_args.args[0])
+
+        MainWindow.set_network_quality(window, 2000)
+        self.assertIn("kém", label.setText.call_args.args[0])
+        self.assertIn("#f6465d", label.setStyleSheet.call_args.args[0])
+
+        MainWindow.set_network_quality(window, None)
+        self.assertIn("mất kết nối", label.setText.call_args.args[0])
+        self.assertIn("#f6465d", label.setStyleSheet.call_args.args[0])
+
 
 if __name__ == "__main__":
     unittest.main()

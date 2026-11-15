@@ -7,6 +7,7 @@ from app.backend.execution import (
     SimulationExecutionMode,
     TestnetExecutionMode,
 )
+from app.backend.market_data import Candle
 from app.backend.strategy import (
     MarketSnapshot,
     NoStrategy,
@@ -104,6 +105,143 @@ class ExecutionModeTests(unittest.TestCase):
         mode.update(market, NoStrategy().evaluate(market))
 
         self.assertEqual(mode.positions(), [])
+
+    def test_simulation_skips_short_after_closed_lower_wick_rejection(self):
+        mode = SimulationExecutionMode(order_margin=50, max_open_positions=1)
+        market = MarketSnapshot(
+            "BTCUSDT",
+            99,
+            1_000_000_000,
+            {
+                "1m": (
+                    Candle(0, 105, 107, 100, 104),
+                    Candle(60_000, 99, 100, 98, 99),
+                )
+            },
+        )
+        signal = StrategySignal(
+            "SHORT", "short pattern", timeframe="1m", strategy_name="short_p"
+        )
+
+        events = mode.update(market, signal)
+
+        self.assertIn("râu dưới", events[0])
+        self.assertEqual(mode.positions(), [])
+
+    def test_simulation_allows_short_when_lower_wick_is_not_longer_than_body(self):
+        mode = SimulationExecutionMode(order_margin=50, max_open_positions=1)
+        market = MarketSnapshot(
+            "BTCUSDT",
+            99,
+            1_000_000_000,
+            {
+                "1m": (
+                    Candle(0, 104, 105, 97, 100),
+                    Candle(60_000, 99, 100, 98, 99),
+                )
+            },
+        )
+        signal = StrategySignal(
+            "SHORT", "short pattern", timeframe="1m", strategy_name="short_p"
+        )
+
+        events = mode.update(market, signal)
+
+        self.assertIn("mở SHORT", events[0])
+        self.assertEqual(len(mode.positions()), 1)
+
+    def test_simulation_skips_long_after_closed_upper_wick_rejection(self):
+        mode = SimulationExecutionMode(order_margin=50, max_open_positions=1)
+        market = MarketSnapshot(
+            "BTCUSDT",
+            101,
+            1_000_000_000,
+            {
+                "1m": (
+                    Candle(0, 102, 110, 100, 101),
+                    Candle(60_000, 101, 102, 100, 101),
+                )
+            },
+        )
+        signal = StrategySignal(
+            "LONG", "long pattern", timeframe="1m", strategy_name="long_p"
+        )
+
+        events = mode.update(market, signal)
+
+        self.assertIn("râu trên", events[0])
+        self.assertEqual(mode.positions(), [])
+
+    def test_testnet_skips_strategy_entry_after_opposite_closed_wick(self):
+        client = FakeBinanceClient()
+        mode = TestnetExecutionMode(
+            client, order_margin=50, max_open_positions=1
+        )
+        market = MarketSnapshot(
+            "BTCUSDT",
+            99,
+            1_000_000_000,
+            {
+                "1m": (
+                    Candle(0, 98, 100, 90, 99),
+                    Candle(60_000, 99, 100, 98, 99),
+                )
+            },
+        )
+        signal = StrategySignal(
+            "SHORT", "short pattern", timeframe="1m", strategy_name="short_p"
+        )
+
+        events = mode.update(market, signal)
+
+        self.assertIn("râu dưới", events[0])
+        self.assertEqual(client.orders, [])
+        self.assertEqual(mode.positions(), [])
+
+    def test_testnet_profit_target_closes_managed_positions_and_cancels_orders(self):
+        client = FakeBinanceClient()
+        mode = TestnetExecutionMode(
+            client,
+            order_margin=50,
+            max_open_positions=3,
+            take_profit_pct=1000,
+            stop_loss_pct=1000,
+            fee_rate=0,
+        )
+        mode.account_summary()
+        mode.update(
+            MarketSnapshot("BTCUSDT", 100, 1_000_000_000),
+            StrategySignal("LONG", "strategy", strategy_name="long_p"),
+        )
+        mode.execute_telegram_command(
+            "open", ["ETHUSDT", "LONG", "LIMIT", "100"], 123
+        )
+        client.active_positions.append(
+            {
+                "symbol": "XRPUSDT",
+                "positionAmt": "0.5",
+                "entryPrice": "100",
+                "markPrice": "200",
+            }
+        )
+        client.active_positions[0]["markPrice"] = "104"
+
+        below_threshold = mode.close_positions_at_profit_target(mode.positions())
+        self.assertEqual(below_threshold, [])
+        self.assertEqual(len(client.active_positions), 2)
+        self.assertEqual(len(client.pending_orders), 1)
+
+        client.active_positions[0]["markPrice"] = "106"
+        events = mode.close_positions_at_profit_target(mode.positions())
+
+        self.assertIn("đã gửi đóng 1 vị thế", events[0])
+        self.assertIn("hủy 1 lệnh chờ", events[0])
+        self.assertEqual(
+            [position["symbol"] for position in client.active_positions],
+            ["XRPUSDT"],
+        )
+        self.assertEqual(client.pending_orders, [])
+        self.assertAlmostEqual(mode.realized_pnl, 6)
 
     def test_simulation_enforces_open_position_limit_and_closes_flat_signal(self):
         mode = SimulationExecutionMode(order_margin=50, max_open_positions=1)
@@ -205,6 +343,31 @@ class ExecutionModeTests(unittest.TestCase):
         self.assertEqual(mode.positions(), [])
         self.assertAlmostEqual(mode.realized_pnl, -1.1)
 
+    def test_simulation_closes_all_positions_only_above_portfolio_profit_target(self):
+        mode = SimulationExecutionMode(
+            order_margin=50,
+            max_open_positions=2,
+            take_profit_pct=1000,
+            stop_loss_pct=1000,
+            fee_rate=0,
+        )
+        btc = MarketSnapshot("BTCUSDT", 100, 1_000_000_000)
+        eth = MarketSnapshot("ETHUSDT", 100, 1_000_000_000)
+        mode.update(btc, self.long)
+        mode.update(eth, self.long)
+        mode.update(MarketSnapshot("BTCUSDT", 105, 1_000_000_000), self.hold)
+        mode.update(MarketSnapshot("ETHUSDT", 100, 1_000_000_000), self.hold)
+
+        self.assertEqual(mode.close_positions_at_profit_target(mode.positions()), [])
+        self.assertEqual(len(mode.positions()), 2)
+
+        mode.update(MarketSnapshot("ETHUSDT", 100.01, 1_000_000_000), self.hold)
+        events = mode.close_positions_at_profit_target(mode.positions())
+
+        self.assertIn("đã đóng 2 vị thế", events[0])
+        self.assertEqual(mode.positions(), [])
+        self.assertAlmostEqual(mode.realized_pnl, 5.01)
+
     def test_reverse_signal_closes_without_opening_opposite_position(self):
         mode = SimulationExecutionMode(
             order_margin=50,
@@ -218,6 +381,105 @@ class ExecutionModeTests(unittest.TestCase):
 
         self.assertIn("tín hiệu ngược chiều", events[0])
         self.assertEqual(mode.positions(), [])
+
+    def test_simulation_waits_for_next_candle_before_protective_reverse_close(self):
+        mode = SimulationExecutionMode(
+            order_margin=50,
+            max_open_positions=1,
+            fee_rate=0,
+            take_profit_pct=10,
+            stop_loss_pct=10,
+        )
+        entry_candle = Candle(60_000, 100, 101, 99, 100)
+        entry_market = MarketSnapshot(
+            "BTCUSDT",
+            100,
+            1_000_000_000,
+            {"1m": (Candle(0, 100, 101, 99, 100), entry_candle)},
+        )
+        long_signal = StrategySignal(
+            "LONG", "long", timeframe="1m", strategy_name="long_p"
+        )
+        short_signal = StrategySignal(
+            "SHORT", "short", timeframe="1m", strategy_name="short_p"
+        )
+        mode.update(entry_market, long_signal)
+
+        same_candle_events = mode.update(entry_market, short_signal)
+        self.assertEqual(same_candle_events, [])
+        self.assertEqual(mode.positions()[0].side, "LONG")
+
+        next_candle = Candle(120_000, 100, 101, 99, 100)
+        next_market = MarketSnapshot(
+            "BTCUSDT",
+            99.5,
+            1_000_000_000,
+            {"1m": (entry_candle, next_candle)},
+        )
+        close_events = mode.update(next_market, short_signal)
+        self.assertIn("đóng bảo vệ", close_events[0])
+        self.assertEqual(mode.positions(), [])
+
+        self.assertEqual(mode.update(next_market, long_signal), [])
+        later_candle = Candle(180_000, 99.5, 100, 99, 99.5)
+        later_market = MarketSnapshot(
+            "BTCUSDT",
+            99.5,
+            1_000_000_000,
+            {"1m": (next_candle, later_candle)},
+        )
+        self.assertTrue(mode.update(later_market, long_signal))
+        self.assertEqual(mode.positions()[0].side, "LONG")
+
+    def test_testnet_waits_for_next_candle_before_protective_reverse_close(self):
+        client = FakeBinanceClient()
+        mode = TestnetExecutionMode(
+            client,
+            order_margin=50,
+            max_open_positions=1,
+            fee_rate=0,
+            take_profit_pct=10,
+            stop_loss_pct=10,
+        )
+        entry_candle = Candle(60_000, 100, 101, 99, 100)
+        entry_market = MarketSnapshot(
+            "BTCUSDT",
+            100,
+            1_000_000_000,
+            {"1m": (Candle(0, 100, 101, 99, 100), entry_candle)},
+        )
+        long_signal = StrategySignal(
+            "LONG", "long", timeframe="1m", strategy_name="long_p"
+        )
+        short_signal = StrategySignal(
+            "SHORT", "short", timeframe="1m", strategy_name="short_p"
+        )
+        mode.update(entry_market, long_signal)
+
+        self.assertEqual(mode.update(entry_market, short_signal), [])
+        self.assertEqual(len(client.active_positions), 1)
+
+        next_candle = Candle(120_000, 100, 101, 99, 100)
+        next_market = MarketSnapshot(
+            "BTCUSDT",
+            99.5,
+            1_000_000_000,
+            {"1m": (entry_candle, next_candle)},
+        )
+        close_events = mode.update(next_market, short_signal)
+        self.assertIn("đóng bảo vệ", close_events[0])
+        self.assertEqual(client.active_positions, [])
+        self.assertEqual(mode.update(next_market, long_signal), [])
+
+        later_candle = Candle(180_000, 99.5, 100, 99, 99.5)
+        later_market = MarketSnapshot(
+            "BTCUSDT",
+            99.5,
+            1_000_000_000,
+            {"1m": (next_candle, later_candle)},
+        )
+        self.assertTrue(mode.update(later_market, long_signal))
+        self.assertEqual(len(client.active_positions), 1)
 
     def test_testnet_enforces_cap_and_closes_only_its_managed_position(self):
         client = FakeBinanceClient()

@@ -7,6 +7,11 @@ from enum import Enum
 from typing import Dict, Mapping, Optional, Sequence, Tuple
 
 from app.backend.market_data import Candle
+from app.backend.technical_indicators import (
+    BOLLINGER_PERIOD,
+    BOLLINGER_STD_DEV,
+    calculate_bollinger_bands,
+)
 
 
 SUPPORTED_CANDLE_INTERVALS = ("1m", "3m", "5m", "15m", "1h", "4h")
@@ -142,7 +147,7 @@ class CandlePatternStrategy(Strategy):
             if self._triggered_candles.get(candle_key) == current.open_time:
                 continue
 
-            if self._matches(previous, current):
+            if self._matches(candles):
                 self._triggered_candles[candle_key] = current.open_time
                 if matched_timeframe is None:
                     matched_timeframe = interval
@@ -161,29 +166,71 @@ class CandlePatternStrategy(Strategy):
             SignalAction.HOLD,
         )
 
-    def _matches(self, previous: Candle, current: Candle) -> bool:
+    def _matches(self, candles: Sequence[Candle]) -> bool:
+        if len(candles) < 2:
+            return False
+        previous, current = candles[-2:]
         candle_range = current.high - current.low
         body = abs(current.close - current.open)
         if candle_range <= 0 or body <= 0:
             return False
 
         if self._side == "SHORT":
+            if current.close >= current.open:
+                return False
             upper_wick = current.high - max(current.open, current.close)
+            lower_wick = min(current.open, current.close) - current.low
             close_position = (current.close - current.low) / candle_range
-            return (
-                current.high <= previous.high * 1.01
-                and current.high > current.open
-                and upper_wick >= 2 * body
+            pattern_matches = (
+                current.high > current.open
+                and current.high > previous.high
+                and current.close < previous.close
+                and upper_wick >= 2 * lower_wick
+                and lower_wick <= body
                 and close_position <= 0.25
             )
+            if not pattern_matches:
+                return False
+            upper_bands, _, _ = _bollinger_bands(candles)
+            previous_upper, current_upper = upper_bands[-2:]
+            return (
+                previous_upper is not None and previous.high >= previous_upper
+            ) or (current_upper is not None and current.high >= current_upper)
 
+        if current.close <= current.open:
+            return False
         lower_wick = min(current.open, current.close) - current.low
+        upper_wick = current.high - max(current.open, current.close)
         close_position = (current.close - current.low) / candle_range
-        return (
+        pattern_matches = (
             current.low < previous.low
-            and lower_wick >= 2 * body
+            and current.low < current.open
+            and current.close > previous.close
+            and lower_wick >= 2 * upper_wick
+            and upper_wick <= body
             and close_position >= 0.75
         )
+        if not pattern_matches:
+            return False
+        _, _, lower_bands = _bollinger_bands(candles)
+        previous_lower, current_lower = lower_bands[-2:]
+        return (
+            previous_lower is not None and previous.low <= previous_lower
+        ) or (current_lower is not None and current.low <= current_lower)
+
+
+def _bollinger_bands(
+    candles: Sequence[Candle],
+) -> Tuple[
+    Sequence[Optional[float]],
+    Sequence[Optional[float]],
+    Sequence[Optional[float]],
+]:
+    return calculate_bollinger_bands(
+        [candle.close for candle in candles],
+        period=BOLLINGER_PERIOD,
+        standard_deviations=BOLLINGER_STD_DEV,
+    )
 
 
 class StrategyFactory:

@@ -15,6 +15,7 @@ class PositionSnapshot:
     strategy_name: str = "Thủ công/Telegram"
     leverage: Optional[float] = None
     timeframe: Optional[str] = None
+    wick_body_ratio: Optional[float] = None
 
     def __post_init__(self) -> None:
         if not self.symbol.strip():
@@ -32,6 +33,10 @@ class PositionSnapshot:
             raise ValueError("Đòn bẩy phải là số hữu hạn lớn hơn 0.")
         if self.timeframe is not None and not self.timeframe.strip():
             raise ValueError("Khung nến không được để trống.")
+        if self.wick_body_ratio is not None and (
+            not math.isfinite(self.wick_body_ratio) or self.wick_body_ratio < 0
+        ):
+            raise ValueError("Tỉ lệ râu/thân phải là số hữu hạn không âm.")
 
     @property
     def notional_usdt(self) -> float:

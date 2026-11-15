@@ -23,6 +23,7 @@ SIMULATION_MAX_ORDER_NOTIONAL = SIMULATION_MAX_ORDER_MARGIN * TRADE_LEVERAGE
 SIMULATION_MAX_OPEN_POSITIONS = int(
     SIMULATION_STARTING_BALANCE / SIMULATION_MAX_ORDER_MARGIN
 )
+PORTFOLIO_PROFIT_TARGET_PCT = 0.5
 
 
 class ExecutionMode(ABC):
@@ -37,6 +38,16 @@ class ExecutionMode(ABC):
     @abstractmethod
     def positions(self) -> List[PositionSnapshot]:
         """Return current open positions."""
+
+    @abstractmethod
+    def update_market_prices(self, prices: Dict[str, float]) -> None:
+        """Update market prices used by the execution mode where applicable."""
+
+    @abstractmethod
+    def close_positions_at_profit_target(
+        self, positions: List[PositionSnapshot]
+    ) -> List[str]:
+        """Close app-managed positions when aggregate open net PnL reaches target."""
 
     @abstractmethod
     def account_summary(self) -> Dict[str, float]:
@@ -113,6 +124,8 @@ class SimulationExecutionMode(ExecutionMode):
         self._market_prices: Dict[str, float] = {}
         self._market_snapshots: Dict[str, MarketSnapshot] = {}
         self._entry_fees: Dict[str, float] = {}
+        self._entry_candles: Dict[str, Tuple[str, int]] = {}
+        self._reentry_after_candles: Dict[str, Tuple[str, int]] = {}
         self._reported_limits = set()
         self._realized_pnl = 0.0
 
@@ -153,6 +166,29 @@ class SimulationExecutionMode(ExecutionMode):
             if signal.side == position.side:
                 return []
 
+            entry_candle = self._entry_candles.get(market.symbol)
+            if entry_candle is not None:
+                timeframe, entry_open_time = entry_candle
+                current_open_time = _current_candle_open_time(
+                    market, timeframe
+                )
+                if (
+                    signal.timeframe != timeframe
+                    or current_open_time is None
+                    or current_open_time <= entry_open_time
+                ):
+                    return []
+                realized = self._close_position(market.symbol, market.price)
+                self._reentry_after_candles[market.symbol] = (
+                    timeframe,
+                    current_open_time,
+                )
+                return [
+                    f"SIMULATION: tín hiệu đảo chiều sau khi nến vào lệnh đóng, "
+                    f"đóng bảo vệ {market.symbol}; PnL đã chốt "
+                    f"{realized:+.4f} USDT."
+                ]
+
             realized = self._close_position(market.symbol, market.price)
             if self.reverse_action == "close_only":
                 return [
@@ -173,6 +209,10 @@ class SimulationExecutionMode(ExecutionMode):
 
         if signal.action != SignalAction.SET_POSITION:
             return []
+        if _is_same_or_earlier_candle(
+            market, signal, self._reentry_after_candles.get(market.symbol)
+        ):
+            return []
         if len(self._simulators) >= self.max_open_positions:
             if market.symbol not in self._reported_limits:
                 self._reported_limits.add(market.symbol)
@@ -181,6 +221,11 @@ class SimulationExecutionMode(ExecutionMode):
                     f"{self.max_open_positions} vị thế mở."
                 ]
             return []
+        rejection = _opposite_closed_candle_rejection(market, signal)
+        if rejection is not None:
+            return [
+                f"SIMULATION: bỏ qua mở {market.symbol}; {rejection}"
+            ]
         try:
             return [self._open_position(market, signal)]
         except RuntimeError as exc:
@@ -189,10 +234,16 @@ class SimulationExecutionMode(ExecutionMode):
             self._reported_limits.add(market.symbol)
             return [f"SIMULATION: bỏ qua {market.symbol}; {exc}"]
 
+    def update_market_prices(self, prices: Dict[str, float]) -> None:
+        self._market_prices.update(prices)
+
     def _open_position(
         self, market: MarketSnapshot, signal: StrategySignal
     ) -> str:
         self._ensure_can_open(market.symbol)
+        rejection = _opposite_closed_candle_rejection(market, signal)
+        if rejection is not None:
+            raise RuntimeError(rejection)
         simulator = Simulator(
             starting_balance=self.order_margin,
             order_notional=self.order_notional,
@@ -201,6 +252,12 @@ class SimulationExecutionMode(ExecutionMode):
         simulator.update(signal, market.price)
         self._simulators[market.symbol] = simulator
         self._entry_fees[market.symbol] = self.order_notional * self.fee_rate
+        entry_candle = _signal_candle_reference(market, signal)
+        if entry_candle is None:
+            self._entry_candles.pop(market.symbol, None)
+        else:
+            self._entry_candles[market.symbol] = entry_candle
+        self._reentry_after_candles.pop(market.symbol, None)
         self._reported_limits.discard(market.symbol)
         position = simulator.position
         if position is None:
@@ -231,6 +288,7 @@ class SimulationExecutionMode(ExecutionMode):
 
     def _close_position(self, symbol: str, price: float) -> float:
         simulator = self._simulators.pop(symbol)
+        self._entry_candles.pop(symbol, None)
         position = simulator.position
         realized_before = simulator.realized_pnl
         simulator.update(StrategySignal(None, "close"), price)
@@ -296,6 +354,33 @@ class SimulationExecutionMode(ExecutionMode):
                 self.fee_rate,
             )[0]
         return total_pnl
+
+    def close_positions_at_profit_target(
+        self, positions: List[PositionSnapshot]
+    ) -> List[str]:
+        if not positions:
+            return []
+        threshold = self.starting_balance * PORTFOLIO_PROFIT_TARGET_PCT / 100
+        open_profit = self.unrealized_pnl
+        if open_profit <= threshold:
+            return []
+
+        closed_count = 0
+        realized_total = 0.0
+        for symbol in list(self._simulators):
+            simulator = self._simulators[symbol]
+            position = simulator.position
+            if position is None:
+                continue
+            price = self._market_prices.get(symbol, position.entry_price)
+            realized_total += self._close_position(symbol, price)
+            closed_count += 1
+        return [
+            f"SIMULATION: tổng PnL ròng đang mở {open_profit:+.4f} USDT vượt "
+            f"{PORTFOLIO_PROFIT_TARGET_PCT:.2f}% vốn "
+            f"({threshold:.4f} USDT); đã đóng {closed_count} vị thế, "
+            f"PnL chốt {realized_total:+.4f} USDT."
+        ]
 
     @property
     def equity(self) -> float:
@@ -465,11 +550,15 @@ class TestnetExecutionMode(ExecutionMode):
         self._reported_limits = set()
         self._reported_external_positions = set()
         self._realized_pnl = 0.0
+        self._profit_target_wallet_balance: Optional[float] = None
         self._managed_order_ids: Dict[str, int] = {}
+        self._entry_candles: Dict[str, Tuple[str, int]] = {}
+        self._reentry_after_candles: Dict[str, Tuple[str, int]] = {}
         self._close_all_confirmations: Dict[int, Tuple[str, float]] = {}
 
     def account_summary(self) -> Dict[str, float]:
         summary = self.client.get_account_summary()
+        self._profit_target_wallet_balance = float(summary["wallet_balance"])
         summary["equity"] = (
             summary["wallet_balance"] + summary["unrealized_pnl"]
         )
@@ -559,6 +648,32 @@ class TestnetExecutionMode(ExecutionMode):
             if signal.side == current.side:
                 return []
 
+            entry_candle = self._entry_candles.get(market.symbol)
+            if entry_candle is not None:
+                timeframe, entry_open_time = entry_candle
+                current_open_time = _current_candle_open_time(
+                    market, timeframe
+                )
+                if (
+                    signal.timeframe != timeframe
+                    or current_open_time is None
+                    or current_open_time <= entry_open_time
+                ):
+                    return []
+                self.client.close_position(market.symbol)
+                self._register_close(market.symbol, estimated_pnl)
+                self._managed_symbols.discard(market.symbol)
+                self._realized_pnl += estimated_pnl
+                self._reentry_after_candles[market.symbol] = (
+                    timeframe,
+                    current_open_time,
+                )
+                return [
+                    f"TESTNET: tín hiệu đảo chiều sau khi nến vào lệnh đóng, "
+                    f"đóng bảo vệ {market.symbol}; PnL đã chốt ước tính "
+                    f"{estimated_pnl:+.4f} USDT."
+                ]
+
             self.client.close_position(market.symbol)
             self._register_close(market.symbol, estimated_pnl)
             self._managed_symbols.discard(market.symbol)
@@ -603,10 +718,19 @@ class TestnetExecutionMode(ExecutionMode):
     ) -> List[str]:
         if signal.action != SignalAction.SET_POSITION or signal.side is None:
             raise ValueError("Chỉ có thể đặt lệnh từ tín hiệu LONG hoặc SHORT.")
+        if _is_same_or_earlier_candle(
+            market, signal, self._reentry_after_candles.get(market.symbol)
+        ):
+            return []
         if market.symbol in _occupied_symbols(open_positions, open_orders):
             return []
         if len(_occupied_symbols(open_positions, open_orders)) >= self.max_open_positions:
             return []
+        rejection = _opposite_closed_candle_rejection(market, signal)
+        if rejection is not None:
+            return [
+                f"TESTNET: bỏ qua mở {market.symbol}; {rejection}"
+            ]
         price = self.client.get_price(market.symbol)
         self.client.enter_position(
             market.symbol, signal.side, price, self.order_notional
@@ -631,6 +755,12 @@ class TestnetExecutionMode(ExecutionMode):
             signal.strategy_name or MANUAL_TRADE_STRATEGY,
             signal.timeframe,
         )
+        entry_candle = _signal_candle_reference(market, signal)
+        if entry_candle is None:
+            self._entry_candles.pop(market.symbol, None)
+        else:
+            self._entry_candles[market.symbol] = entry_candle
+        self._reentry_after_candles.pop(market.symbol, None)
         self._reported_limits.discard(market.symbol)
         self._reported_external_positions.discard(market.symbol)
         return [
@@ -890,12 +1020,108 @@ class TestnetExecutionMode(ExecutionMode):
             for item in self.client.get_open_positions()
         ]
 
+    def close_positions_at_profit_target(
+        self, positions: List[PositionSnapshot]
+    ) -> List[str]:
+        capital = self._profit_target_wallet_balance
+        if capital is None or not math.isfinite(capital) or capital <= 0:
+            return []
+        managed_positions = [
+            position
+            for position in positions
+            if position.symbol in self._managed_symbols
+        ]
+        if not managed_positions:
+            return []
+        open_profit = sum(
+            _estimate_net_pnl(
+                position.side,
+                position.entry_price,
+                position.quantity,
+                position.mark_price,
+                self.fee_rate,
+            )[0]
+            for position in managed_positions
+        )
+        threshold = capital * PORTFOLIO_PROFIT_TARGET_PCT / 100
+        if open_profit <= threshold:
+            return []
+
+        managed_symbols = set(self._managed_symbols)
+        managed_order_symbols = set(self._managed_order_ids)
+        cancelled_order_symbols: Set[str] = set()
+        if self._managed_order_ids:
+            open_orders = self.client.get_open_orders()
+            open_order_ids = {
+                (str(order["symbol"]), int(order["orderId"]))
+                for order in open_orders
+                if order.get("symbol") and order.get("orderId") is not None
+            }
+            for symbol, order_id in list(self._managed_order_ids.items()):
+                if (symbol, order_id) in open_order_ids:
+                    self.client.cancel_order(symbol, order_id)
+                    cancelled_order_symbols.add(symbol)
+                self._managed_order_ids.pop(symbol, None)
+
+        closed_count = 0
+        cancelled_count = len(cancelled_order_symbols)
+        realized_total = 0.0
+        active_managed_symbols: Set[str] = set()
+        for exchange_position in self.client.get_open_positions():
+            symbol = str(exchange_position["symbol"])
+            if symbol not in managed_symbols:
+                continue
+            active_managed_symbols.add(symbol)
+            self._register_open(
+                symbol,
+                self._strategy_by_symbol.get(symbol),
+                self._timeframe_by_symbol.get(symbol),
+            )
+            snapshot = _position_snapshot(
+                exchange_position,
+                self._strategy_by_symbol.get(symbol, MANUAL_TRADE_STRATEGY),
+                float(TRADE_LEVERAGE),
+                self._timeframe_by_symbol.get(symbol),
+            )
+            estimated_pnl, _ = _estimate_net_pnl(
+                snapshot.side,
+                snapshot.entry_price,
+                snapshot.quantity,
+                snapshot.mark_price,
+                self.fee_rate,
+            )
+            self.client.close_position(symbol)
+            self._register_close(symbol, estimated_pnl)
+            self._managed_symbols.discard(symbol)
+            self._managed_order_ids.pop(symbol, None)
+            self._realized_pnl += estimated_pnl
+            realized_total += estimated_pnl
+            closed_count += 1
+
+        for symbol in managed_order_symbols:
+            if symbol not in active_managed_symbols:
+                self._managed_symbols.discard(symbol)
+                self._strategy_by_symbol.pop(symbol, None)
+                self._timeframe_by_symbol.pop(symbol, None)
+
+        return [
+            f"TESTNET: tổng PnL ròng vị thế đang mở {open_profit:+.4f} USDT vượt "
+            f"{PORTFOLIO_PROFIT_TARGET_PCT:.2f}% vốn "
+            f"({threshold:.4f} USDT); đã gửi đóng {closed_count} vị thế "
+            f"do ứng dụng quản lý và hủy {cancelled_count} lệnh chờ; "
+            f"PnL chốt ước tính {realized_total:+.4f} USDT."
+        ]
+
+    def update_market_prices(self, prices: Dict[str, float]) -> None:
+        return None
+
     def _register_open(
         self,
         symbol: str,
         strategy_name: Optional[str],
         timeframe: Optional[str] = None,
     ) -> None:
+        self._reentry_after_candles.pop(symbol, None)
         strategy = strategy_name or self._strategy_by_symbol.get(
             symbol, MANUAL_TRADE_STRATEGY
         )
@@ -913,6 +1139,8 @@ class TestnetExecutionMode(ExecutionMode):
     def _register_close(self, symbol: str, net_pnl: Optional[float]) -> None:
         strategy = self._strategy_by_symbol.pop(symbol, None)
         timeframe = self._timeframe_by_symbol.pop(symbol, None)
+        self._entry_candles.pop(symbol, None)
+        self._reentry_after_candles.pop(symbol, None)
         if symbol not in self._registered_open_symbols:
             return
         if self.trade_statistics is not None and strategy is not None:
@@ -990,6 +1218,76 @@ def _validate_limits(order_margin: float, max_open_positions: int) -> None:
         or max_open_positions < 1
     ):
         raise ValueError("Số vị thế mở tối đa phải là số nguyên từ 1 trở lên.")
+
+
+def _current_candle_open_time(
+    market: MarketSnapshot, timeframe: str
+) -> Optional[int]:
+    candles = market.candles_by_interval.get(timeframe, ())
+    return candles[-1].open_time if candles else None
+
+
+def _opposite_closed_candle_rejection(
+    market: MarketSnapshot, signal: StrategySignal
+) -> Optional[str]:
+    if signal.timeframe is None or signal.side not in ("LONG", "SHORT"):
+        return None
+    candles = market.candles_by_interval.get(signal.timeframe, ())
+    if len(candles) < 2:
+        return None
+
+    candle = candles[-2]
+    candle_range = candle.high - candle.low
+    body = abs(candle.close - candle.open)
+    if candle_range <= 0 or body <= 0:
+        return None
+
+    if signal.side == "SHORT":
+        upper_wick = candle.high - max(candle.open, candle.close)
+        lower_wick = min(candle.open, candle.close) - candle.low
+        is_opposite_rejection = (
+            lower_wick >= 2 * upper_wick and lower_wick > body
+        )
+        rejection_description = (
+            "râu dưới ít nhất gấp đôi râu trên và lớn hơn thân nến"
+        )
+    else:
+        upper_wick = candle.high - max(candle.open, candle.close)
+        close_position = (candle.close - candle.low) / candle_range
+        is_opposite_rejection = upper_wick >= 2 * body and close_position <= 0.25
+        rejection_description = (
+            "râu trên ít nhất gấp đôi thân nến và giá đóng nằm trong "
+            "25% biên độ phía dưới"
+        )
+
+    if not is_opposite_rejection:
+        return None
+    return (
+        f"nến đã đóng trước đó trên khung {signal.timeframe} có "
+        f"{rejection_description}."
+    )
+
+
+def _signal_candle_reference(
+    market: MarketSnapshot, signal: StrategySignal
+) -> Optional[Tuple[str, int]]:
+    if signal.timeframe is None:
+        return None
+    open_time = _current_candle_open_time(market, signal.timeframe)
+    if open_time is None:
+        return None
+    return signal.timeframe, open_time
+
+
+def _is_same_or_earlier_candle(
+    market: MarketSnapshot,
+    signal: StrategySignal,
+    reference: Optional[Tuple[str, int]],
+) -> bool:
+    if reference is None or signal.timeframe != reference[0]:
+        return False
+    current_open_time = _current_candle_open_time(market, reference[0])
+    return current_open_time is None or current_open_time <= reference[1]
 
 
 def _validate_risk_limits(

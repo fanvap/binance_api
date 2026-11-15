@@ -10,12 +10,25 @@ $python = Join-Path $root ".venv\Scripts\python.exe"
 $buildDirectory = Join-Path $root "build"
 $distDirectory = Join-Path $root "dist"
 $entryPoint = Join-Path $root "src\main.py"
+$applicationDirectory = $distDirectory
+if (-not $OneFile) {
+    $applicationDirectory = Join-Path $distDirectory "BinanceMarketConsole"
+}
+$targetExecutable = Join-Path $applicationDirectory "BinanceMarketConsole.exe"
 
 if (-not (Test-Path $python)) {
     & py -m venv (Join-Path $root ".venv")
     if ($LASTEXITCODE -ne 0) {
         throw "Không tạo được môi trường Python ảo."
     }
+}
+
+$runningApplication = Get-CimInstance Win32_Process `
+    -Filter "Name = 'BinanceMarketConsole.exe'" |
+    Where-Object { $_.ExecutablePath -eq $targetExecutable }
+if ($runningApplication) {
+    $processIds = ($runningApplication | ForEach-Object { $_.ProcessId }) -join ", "
+    throw "Cannot overwrite the build output while BinanceMarketConsole.exe is running (PID: $processIds). Close the application and rerun build_windows.ps1."
 }
 
 New-Item -ItemType Directory -Path $buildDirectory -Force | Out-Null
@@ -50,10 +63,6 @@ if ($LASTEXITCODE -ne 0) {
     throw "PyInstaller build thất bại."
 }
 
-$applicationDirectory = $distDirectory
-if (-not $OneFile) {
-    $applicationDirectory = Join-Path $distDirectory "BinanceMarketConsole"
-}
 $envExample = Join-Path $root ".env.example"
 if (Test-Path $envExample) {
     Copy-Item $envExample (Join-Path $applicationDirectory ".env.example") -Force

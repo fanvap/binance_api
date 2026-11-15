@@ -1,8 +1,10 @@
 """Background market-cap filtering and multi-symbol price polling."""
 
+import math
 import threading
 import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
+from dataclasses import replace
 from queue import Empty
 from typing import Dict, List, Optional, Sequence, Set, Tuple, TypedDict
 
@@ -10,6 +12,7 @@ from PyQt6.QtCore import QThread, pyqtSignal
 
 from app.backend.market_caps import MarketCapClient, MARKET_CAP_THRESHOLD_USD
 from app.backend.market_data import BinanceMarketDataClient
+from app.backend.positions import PositionSnapshot
 from app.backend.execution import (
     MAX_ORDER_MARGIN,
     SIMULATION_MAX_OPEN_POSITIONS,
@@ -18,10 +21,12 @@ from app.backend.execution import (
     ExecutionModeFactory,
 )
 from app.backend.market_data import Candle
+from app.backend.technical_indicators import BOLLINGER_PERIOD
 from app.backend.strategy import (
     CANDLE_INTERVAL_SECONDS,
     SUPPORTED_CANDLE_INTERVALS,
     MarketSnapshot,
+    SignalAction,
     Strategy,
     StrategyFactory,
     StrategySignal,
@@ -35,6 +40,8 @@ from app.backend.telegram import (
     TelegramWorker,
     parse_command,
 )
+
+MARKET_SCAN_INTERVAL_SECONDS = 1
 
 
 class MarketRow(TypedDict):
@@ -57,6 +64,7 @@ class MarketScannerWorker(QThread):
     strategy_statistics_received = pyqtSignal(object)
     source_received = pyqtSignal(str)
     telegram_status_received = pyqtSignal(str)
+    network_quality_received = pyqtSignal(object)
 
     def __init__(
         self,
@@ -80,6 +88,17 @@ class MarketScannerWorker(QThread):
             candle_intervals
             if candle_intervals is not None
             else SUPPORTED_CANDLE_INTERVALS,
+        )
+        opposite_strategy_name = {
+            "short_p": "long_p",
+            "long_p": "short_p",
+        }.get(strategy_name)
+        self._protective_strategy: Optional[Strategy] = (
+            StrategyFactory.create(
+                opposite_strategy_name, self._strategy.candle_intervals
+            )
+            if opposite_strategy_name is not None
+            else None
         )
         self._trade_statistics = trade_statistics or StrategyTradeStatistics()
         default_order_margin = (
@@ -127,7 +146,11 @@ class MarketScannerWorker(QThread):
                 )
             self._send_account_summary()
             self.log_received.emit("INFO", "Đang tải hợp đồng Binance Futures USDT...")
-            contracts = self._market_data.get_usdt_perpetual_symbols()
+            try:
+                contracts = self._market_data.get_usdt_perpetual_symbols()
+            except Exception:
+                self.network_quality_received.emit(None)
+                raise
             base_assets = {contract["base_asset"] for contract in contracts}
 
             self.log_received.emit(
@@ -173,6 +196,7 @@ class MarketScannerWorker(QThread):
 
             candle_cache: Dict[str, Dict[str, List[Candle]]] = {}
             last_candle_bucket: Dict[str, int] = {}
+            active_strategy_positions: Dict[str, PositionSnapshot] = {}
             while not self._stop_event.is_set():
                 current_time_ms = int(time.time() * 1000)
                 current_time = current_time_ms // 1000
@@ -202,11 +226,26 @@ class MarketScannerWorker(QThread):
                         eligible, candle_cache, due_intervals
                     )
                     last_candle_bucket.update(refreshed_buckets)
-                prices = self._market_data.get_all_prices()
+                prices = self._get_prices_with_network_quality()
                 current_time_ms = int(time.time() * 1000)
                 self._update_live_candles(
                     candle_cache, prices, current_time_ms
                 )
+                self._execution_mode.update_market_prices(prices)
+                position_snapshots = self._execution_mode.positions()
+                profit_target_events = (
+                    self._execution_mode.close_positions_at_profit_target(
+                        position_snapshots
+                    )
+                )
+                portfolio_target_hit = bool(profit_target_events)
+                if portfolio_target_hit:
+                    for message in profit_target_events:
+                        self.log_received.emit("SUCCESS", message)
+                        if self._telegram_worker is not None:
+                            self._telegram_worker.broadcast(message)
+                    self._send_account_summary(force=True)
+
                 rows: List[MarketRow] = []
                 for contract in eligible:
                     symbol = contract["symbol"]
@@ -220,7 +259,7 @@ class MarketScannerWorker(QThread):
                         price,
                         market_cap,
                         {
-                            interval: self._current_candle_pair(
+                            interval: self._current_candle_history(
                                 candle_cache,
                                 symbol,
                                 interval,
@@ -229,7 +268,18 @@ class MarketScannerWorker(QThread):
                             for interval in self._strategy.candle_intervals
                         },
                     )
-                    signal = self._strategy.evaluate(snapshot)
+                    signal = self._evaluate_market_signal(
+                        snapshot, active_strategy_positions.get(symbol)
+                    )
+                    if (
+                        portfolio_target_hit
+                        and signal.action == SignalAction.SET_POSITION
+                    ):
+                        signal = StrategySignal(
+                            None,
+                            "Đã chốt mục tiêu lợi nhuận danh mục trong vòng quét này.",
+                            SignalAction.HOLD,
+                        )
                     for message in self._execution_mode.update(snapshot, signal):
                         self.log_received.emit("SUCCESS", message)
                         if self._telegram_worker is not None:
@@ -241,15 +291,32 @@ class MarketScannerWorker(QThread):
                             market_cap=market_cap,
                             price=price,
                             strategy=(
-                                f"{self._strategy.name} · {signal.timeframe}"
+                                f"{signal.strategy_name or self._strategy.name} "
+                                f"· {signal.timeframe}"
                                 if signal.timeframe
-                                else self._strategy.name
+                                else signal.strategy_name or self._strategy.name
                             ),
                             signal=signal.side or "CHỜ",
                         )
                     )
                 self.snapshot_received.emit(rows)
-                self.positions_received.emit(self._execution_mode.positions())
+                position_snapshots = self._execution_mode.positions()
+                positions = [
+                    replace(
+                        position,
+                        wick_body_ratio=self._closed_candle_wick_body_ratio(
+                            position, candle_cache, current_time_ms
+                        ),
+                    )
+                    for position in position_snapshots
+                ]
+                self.positions_received.emit(positions)
+                active_strategy_positions = {
+                    position.symbol: position
+                    for position in positions
+                    if position.strategy_name in ("short_p", "long_p")
+                    and position.timeframe is not None
+                }
                 self.realized_pnl_received.emit(self._execution_mode.realized_pnl)
                 self._process_telegram_commands()
                 self.strategy_statistics_received.emit(
@@ -261,7 +328,7 @@ class MarketScannerWorker(QThread):
                     "UPDATE",
                     f"Đã cập nhật giá {len(rows)}/{len(eligible)} hợp đồng.",
                 )
-                self._stop_event.wait(5)
+                self._stop_event.wait(MARKET_SCAN_INTERVAL_SECONDS)
 
             self.finished_with_status.emit("Đã dừng theo dõi thị trường.")
         except Exception as exc:
@@ -273,6 +340,17 @@ class MarketScannerWorker(QThread):
                 self._telegram_worker.stop()
                 self._telegram_worker.wait(10000)
 
+    def _get_prices_with_network_quality(self) -> Dict[str, float]:
+        started_at = time.monotonic()
+        try:
+            prices = self._market_data.get_all_prices()
+        except Exception:
+            self.network_quality_received.emit(None)
+            raise
+        latency_ms = (time.monotonic() - started_at) * 1000
+        self.network_quality_received.emit(latency_ms)
+        return prices
+
     def _broadcast_execution_event(
         self, message: str, signal: StrategySignal
     ) -> None:
@@ -283,10 +361,64 @@ class MarketScannerWorker(QThread):
             message = f"{marker} {signal.side}\n{message}"
         if signal.timeframe is not None:
             message = (
-                f"{message}\nChiến thuật: {self._strategy.name}; "
+                f"{message}\nChiến thuật: "
+                f"{signal.strategy_name or self._strategy.name}; "
                 f"khung nến: {signal.timeframe}."
             )
         self._telegram_worker.broadcast(message)
+
+    def _evaluate_market_signal(
+        self,
+        market: MarketSnapshot,
+        position: Optional[PositionSnapshot] = None,
+    ) -> StrategySignal:
+        selected_signal = self._strategy.evaluate(market)
+        if position is None or position.timeframe is None:
+            return selected_signal
+
+        candidates = [selected_signal]
+        if self._protective_strategy is not None:
+            candidates.append(self._protective_strategy.evaluate(market))
+        for signal in candidates:
+            if (
+                signal.action == SignalAction.SET_POSITION
+                and signal.side != position.side
+                and signal.timeframe == position.timeframe
+            ):
+                return signal
+        return selected_signal
+
+    def _closed_candle_wick_body_ratio(
+        self,
+        position: PositionSnapshot,
+        candle_cache: Dict[str, Dict[str, List[Candle]]],
+        current_time_ms: int,
+    ) -> Optional[float]:
+        if position.timeframe is None:
+            return None
+        candle_pair = self._current_candle_pair(
+            candle_cache,
+            position.symbol,
+            position.timeframe,
+            current_time_ms,
+        )
+        if not candle_pair:
+            return None
+
+        candle = candle_pair[0]
+        if any(
+            not math.isfinite(value)
+            for value in (candle.open, candle.high, candle.low, candle.close)
+        ):
+            return None
+        body = abs(candle.close - candle.open)
+        if body <= 0:
+            return None
+        if position.side == "LONG":
+            wick = min(candle.open, candle.close) - candle.low
+        else:
+            wick = candle.high - max(candle.open, candle.close)
+        return max(0.0, wick) / body
 
     def _process_telegram_commands(self) -> None:
         if self._telegram_worker is None:
@@ -345,9 +477,13 @@ class MarketScannerWorker(QThread):
         )
         self._last_telegram_pnl_at = now
 
-    def _send_account_summary(self) -> None:
+    def _send_account_summary(self, force: bool = False) -> None:
         now = time.monotonic()
-        if self._mode == "testnet" and now - self._last_account_summary_at < 15:
+        if (
+            self._mode == "testnet"
+            and not force
+            and now - self._last_account_summary_at < 15
+        ):
             return
         self._last_account_summary_at = now
         try:
@@ -374,7 +510,7 @@ class MarketScannerWorker(QThread):
                     self._market_data.get_candles,
                     contract["symbol"],
                     interval,
-                    3,
+                    BOLLINGER_PERIOD + 1,
                 ): (contract["symbol"], interval)
                 for contract in contracts
                 for interval in intervals
@@ -419,6 +555,20 @@ class MarketScannerWorker(QThread):
         ):
             return ()
         return tuple(candles[-2:])
+
+    @staticmethod
+    def _current_candle_history(
+        candle_cache: Dict[str, Dict[str, List[Candle]]],
+        symbol: str,
+        interval: str,
+        current_time_ms: int,
+    ) -> Tuple[Candle, ...]:
+        candles = candle_cache.get(symbol, {}).get(interval, [])
+        if len(candles) < 2 or not MarketScannerWorker._has_current_candle(
+            candle_cache, symbol, interval, current_time_ms
+        ):
+            return ()
+        return tuple(candles)
 
     def _update_live_candles(
         self,

@@ -27,6 +27,8 @@ Script tự tạo `.venv`, cài các gói trong `requirements-build.txt` và đ�
 PyInstaller. Mặc định tạo bản **onedir** để chạy ổn định hơn với PyQt:
 `dist\BinanceMarketConsole\BinanceMarketConsole.exe`. Khi gửi cho máy Windows khác,
 hãy gửi cả thư mục `dist\BinanceMarketConsole`, không chỉ file `.exe`.
+Có thể nhấp đúp `build_windows.bat` để chạy build và xem kết quả; hãy đóng ứng dụng
+BinanceMarketConsole nếu đang chạy trước khi build lại.
 
 Muốn tạo một file `.exe` duy nhất, chạy:
 
@@ -46,10 +48,14 @@ Danh sách tài khoản nằm trong `src/app/backend/auth.py`; dùng
 Đây là lớp đăng nhập cục bộ cho giao diện desktop, không thay thế bảo vệ hệ điều hành
 hay cơ chế xác thực máy chủ.
 
-Nhấn **Bắt đầu quét** để cập nhật danh sách giá mỗi 5 giây. Nhấn **Chart** ở dòng hợp
+Nhấn **Bắt đầu quét** để cập nhật danh sách giá với thời gian chờ khoảng 1 giây giữa
+các vòng quét (thời gian phản hồi API có thể làm vòng quét lâu hơn). Nhấn **Chart** ở dòng hợp
 đồng trong bảng thị trường hoặc vị thế trong bảng lệnh đang mở để mở cửa sổ biểu đồ riêng.
 Chart có nến xanh/đỏ, volume, trục giá, crosshair, đường giá mới nhất; hỗ trợ khung
-1m, 3m, 5m, 15m, 1h, 4h, 1d và tự cập nhật.
+1m, 3m, 5m, 15m, 1h, 4h, 1d và tự cập nhật. Chart giá phủ thêm EMA 20 và Bollinger
+Bands 20 kỳ với 2 độ lệch chuẩn.
+Chỉ báo **Mạng** hiển thị độ trễ phản hồi Binance Futures: xanh ≤ 500 ms, vàng
+501–1500 ms, đỏ > 1500 ms hoặc khi không có phản hồi.
 
 Nút ngày/đêm ở màn hình đăng nhập, dashboard hoặc chart sẽ đổi giao diện đồng bộ.
 Lựa chọn được lưu cục bộ và áp dụng lại ở lần chạy sau.
@@ -58,11 +64,24 @@ Giao diện cho phép chọn riêng chiến thuật **short_p** hoặc **long_p*
 khung nến 1m, 3m, 5m, 15m, 1h, 4h (mặc định bật cả sáu). Tín hiệu trên bất kỳ khung
 đang bật nào cũng có thể vào lệnh. Chiến thuật kiểm tra nến đang chạy mỗi vòng quét;
 nến trước đã đóng chỉ dùng làm mốc so sánh. Sau khi phát tín hiệu, cùng một nến không
-phát tín hiệu lần nữa. **short_p** yêu cầu high nến hiện tại không vượt high nến trước
-quá 1%, có râu trên ít nhất gấp đôi thân nến, và giá hiện tại nằm trong 25% thấp nhất
-của biên độ. **long_p** yêu cầu low nến hiện tại thấp hơn low nến trước, râu dưới ít
-nhất gấp đôi thân nến, và giá hiện tại nằm trong 25% cao nhất. Telegram ghi chiến thuật
+phát tín hiệu lần nữa. **short_p** yêu cầu giá đã tăng vượt giá mở cửa trong nến hiện tại
+rồi đảo chiều đỏ; đỉnh nến hiện tại cao hơn đỉnh nến trước, giá hiện tại thấp hơn giá đóng
+cửa nến trước, râu trên ít nhất gấp đôi râu dưới, râu dưới không dài hơn thân nến, và giá
+hiện tại nằm trong 25% thấp nhất của biên độ; nến hiện tại hoặc nến đã đóng ngay trước đó
+có đỉnh chạm/vượt Upper Bollinger Band (20, 2). **long_p** yêu cầu giá đã giảm dưới giá
+mở cửa trong nến hiện tại rồi đảo chiều xanh; đáy nến hiện tại thấp hơn đáy nến trước,
+giá hiện tại cao hơn giá đóng cửa nến trước, râu dưới ít nhất gấp đôi râu trên, râu trên
+không dài hơn thân nến, và giá hiện tại nằm trong 25% cao nhất; nến hiện tại hoặc nến đã
+đóng ngay trước đó có đáy chạm/vượt Lower Bollinger Band (20, 2). Telegram ghi chiến thuật
 và khung nến của tín hiệu vào lệnh; thông báo bắt đầu quét cũng liệt kê các khung đang bật.
+Khi vị thế do chiến thuật mở, ứng dụng theo dõi thêm mẫu hình đối hướng trên cùng khung
+nến. Tín hiệu đảo chiều chỉ đóng vị thế sau khi nến vào lệnh đã kết thúc và nến kế tiếp
+đang chạy thỏa mẫu hình đối hướng; không cần chờ nến kế tiếp đóng. Lệnh mới không được
+mở lại theo chính tín hiệu đã đóng lệnh, mà chờ một tín hiệu vào lệnh mới.
+Trước khi vào lệnh, bot cũng kiểm tra nến đã đóng ngay trước đó trên cùng khung: không
+SHORT nếu râu dưới ít nhất gấp đôi râu trên và lớn hơn thân nến; không LONG nếu râu trên
+ít nhất gấp đôi thân nến và giá đóng nằm trong 25% biên độ phía dưới. Nến thân bằng 0
+hoặc thiếu dữ liệu không bị xem là mẫu hình cản lệnh.
 
 Tab **Thống kê chiến thuật** tổng hợp riêng theo chiến thuật, khung nến và
 Simulation/Testnet trong phiên ứng dụng hiện tại; mỗi dòng cho biết `short_p` hoặc
@@ -72,7 +91,9 @@ khi vị thế được xác nhận mở/đóng, không tính lệnh LIMIT còn 
 tổng tiền dùng PnL ròng sau phí; hòa vốn hoặc kết quả đóng ngoài ứng dụng chưa xác định
 được hiển thị riêng và không tính vào tỉ lệ thắng. Lệnh mở thủ công qua Telegram được
 thống kê ở nhóm **Thủ công/Telegram**. Bảng **Lệnh đang mở** hiển thị thêm chiến thuật
-đã mở vị thế.
+đã mở vị thế, tỉ lệ râu thuận hướng/thân của nến đã đóng gần nhất trên khung vị thế,
+và tự sắp xếp tỉ lệ cao hơn lên trước. LONG dùng râu dưới, SHORT dùng râu trên; vị thế
+không có đủ dữ liệu hoặc nến thân bằng 0 hiển thị `—` và xếp sau.
 
 Dashboard cho phép chọn **Simulation** hoặc **Binance Testnet**, nhập ký quỹ tối đa
 mỗi lệnh, số vị thế mở đồng thời, % chốt lời và % dừng lỗ. Cả hai chế độ dùng đòn bẩy
@@ -83,6 +104,10 @@ còn PnL và phí được tính trên giá trị vị thế. Testnet mặc đ�
 lỗ 1%. Ngưỡng lãi/lỗ được tính trên giá trị vị thế ban đầu, theo PnL ròng ước tính sau
 phí vào/ra (0.04% mỗi chiều), chưa gồm funding. Khi chạm ngưỡng, ứng dụng đóng vị thế
 và cộng PnL ước tính vào PnL đã chốt. Các giới hạn được kiểm tra lại trong backend.
+Ngoài TP/SL từng lệnh, ứng dụng tự đóng toàn bộ vị thế đang quản lý khi tổng PnL ròng
+chưa chốt vượt 0.5% vốn: vốn ban đầu Simulation hoặc số dư ví Testnet cập nhật gần nhất.
+Khi kích hoạt trên Testnet, các lệnh chờ do ứng dụng đặt cũng bị hủy; vị thế ngoài phiên
+không bị ảnh hưởng. Lệnh vào mới được giữ lại đến vòng quét tiếp theo sau khi chốt mục tiêu.
 Thanh trạng thái đầu dashboard hiển thị số dư ví và số dư khả dụng; Simulation dùng vốn
 mô phỏng, còn Testnet lấy số liệu tài khoản Binance khi bắt đầu quét và cập nhật định kỳ.
 

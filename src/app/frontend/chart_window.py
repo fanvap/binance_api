@@ -1,11 +1,12 @@
 """Binance-style candlestick chart window for a Futures symbol."""
 
+import math
 import threading
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 from PyQt6.QtCore import QThread, QPointF, QRectF, Qt, pyqtSignal
-from PyQt6.QtGui import QColor, QMouseEvent, QPainter, QPen
+from PyQt6.QtGui import QColor, QMouseEvent, QPainter, QPainterPath, QPen
 from PyQt6.QtWidgets import (
     QComboBox,
     QHBoxLayout,
@@ -17,7 +18,32 @@ from PyQt6.QtWidgets import (
 )
 
 from app.backend.market_data import BinanceMarketDataClient, Candle
+from app.backend.technical_indicators import (
+    BOLLINGER_PERIOD,
+    BOLLINGER_STD_DEV,
+    calculate_bollinger_bands,
+)
 from app.frontend.theme import THEMES, ThemeManager, chart_stylesheet
+
+EMA_PERIOD = 20
+
+
+def calculate_ema(
+    values: List[float], period: int = EMA_PERIOD
+) -> List[Optional[float]]:
+    if period < 1:
+        raise ValueError("Chu kỳ EMA phải từ 1 trở lên.")
+    result: List[Optional[float]] = [None] * len(values)
+    if len(values) < period:
+        return result
+
+    ema = math.fsum(values[:period]) / period
+    result[period - 1] = ema
+    multiplier = 2 / (period + 1)
+    for index in range(period, len(values)):
+        ema = (values[index] - ema) * multiplier + ema
+        result[index] = ema
+    return result
 
 
 class ChartWorker(QThread):
@@ -50,6 +76,10 @@ class CandlestickChart(QWidget):
     def __init__(self, parent=None) -> None:
         super().__init__(parent)
         self.candles: List[Candle] = []
+        self.ema_values: List[Optional[float]] = []
+        self.bb_upper: List[Optional[float]] = []
+        self.bb_middle: List[Optional[float]] = []
+        self.bb_lower: List[Optional[float]] = []
         self.crosshair_position: Optional[QPointF] = None
         self.colors = THEMES["dark"]
         self.setMouseTracking(True)
@@ -61,6 +91,11 @@ class CandlestickChart(QWidget):
 
     def set_candles(self, candles: List[Candle]) -> None:
         self.candles = candles
+        closes = [candle.close for candle in candles]
+        self.ema_values = calculate_ema(closes)
+        self.bb_upper, self.bb_middle, self.bb_lower = calculate_bollinger_bands(
+            closes
+        )
         self.crosshair_position = None
         if candles:
             self.cursor_changed.emit(self._ohlc_text(candles[-1]))
@@ -87,8 +122,20 @@ class CandlestickChart(QWidget):
         if plot.width() <= 0 or plot.height() <= 0:
             return
 
-        highest = max(candle.high for candle in self.candles)
-        lowest = min(candle.low for candle in self.candles)
+        indicator_highs = [
+            value for value in self.bb_upper if value is not None
+        ]
+        indicator_lows = [
+            value for value in self.bb_lower if value is not None
+        ]
+        highest = max(
+            max(candle.high for candle in self.candles),
+            max(indicator_highs, default=float("-inf")),
+        )
+        lowest = min(
+            min(candle.low for candle in self.candles),
+            min(indicator_lows, default=float("inf")),
+        )
         if highest == lowest:
             padding = max(abs(highest) * 0.005, 0.01)
             highest += padding
@@ -97,11 +144,117 @@ class CandlestickChart(QWidget):
 
         self._draw_grid(painter, plot, highest, lowest)
         self._draw_volume_grid(painter, volume_plot)
+        self._draw_bollinger_fill(painter, plot, lowest, price_range)
         self._draw_candles(painter, plot, highest, lowest, price_range)
+        self._draw_technical_indicator_lines(
+            painter, plot, lowest, price_range
+        )
+        self._draw_indicator_legend(painter)
         self._draw_volume(painter, volume_plot)
         self._draw_time_axis(painter, plot, axis_bottom)
         self._draw_current_price(painter, plot, lowest, price_range)
         self._draw_crosshair(painter, plot, volume_plot, axis_bottom, highest, lowest, price_range)
+
+    def _draw_bollinger_fill(
+        self, painter: QPainter, plot: QRectF, lowest: float, price_range: float
+    ) -> None:
+        bands = [
+            (index, upper, lower)
+            for index, (upper, lower) in enumerate(
+                zip(self.bb_upper, self.bb_lower)
+            )
+            if upper is not None and lower is not None
+        ]
+        if not bands:
+            return
+
+        slot_width = plot.width() / len(self.candles)
+        path = QPainterPath()
+        first_index, first_upper, _ = bands[0]
+        path.moveTo(
+            plot.left() + slot_width * (first_index + 0.5),
+            self._price_y(first_upper, lowest, price_range, plot),
+        )
+        for index, upper, _ in bands[1:]:
+            path.lineTo(
+                plot.left() + slot_width * (index + 0.5),
+                self._price_y(upper, lowest, price_range, plot),
+            )
+        for index, _, lower in reversed(bands):
+            path.lineTo(
+                plot.left() + slot_width * (index + 0.5),
+                self._price_y(lower, lowest, price_range, plot),
+            )
+        path.closeSubpath()
+        fill = QColor("#4f8ef7")
+        fill.setAlpha(24)
+        painter.fillPath(path, fill)
+
+    def _draw_technical_indicator_lines(
+        self, painter: QPainter, plot: QRectF, lowest: float, price_range: float
+    ) -> None:
+        self._draw_indicator_line(
+            painter, self.bb_upper, plot, lowest, price_range, "#4f8ef7"
+        )
+        self._draw_indicator_line(
+            painter,
+            self.bb_middle,
+            plot,
+            lowest,
+            price_range,
+            "#4f8ef7",
+            Qt.PenStyle.DotLine,
+        )
+        self._draw_indicator_line(
+            painter, self.bb_lower, plot, lowest, price_range, "#4f8ef7"
+        )
+        self._draw_indicator_line(
+            painter, self.ema_values, plot, lowest, price_range, "#f0b90b"
+        )
+
+    def _draw_indicator_line(
+        self,
+        painter: QPainter,
+        values: List[Optional[float]],
+        plot: QRectF,
+        lowest: float,
+        price_range: float,
+        color: str,
+        style: Qt.PenStyle = Qt.PenStyle.SolidLine,
+    ) -> None:
+        slot_width = plot.width() / len(self.candles)
+        path = QPainterPath()
+        drawing = False
+        for index, value in enumerate(values):
+            if value is None:
+                drawing = False
+                continue
+            point = QPointF(
+                plot.left() + slot_width * (index + 0.5),
+                self._price_y(value, lowest, price_range, plot),
+            )
+            if drawing:
+                path.lineTo(point)
+            else:
+                path.moveTo(point)
+                drawing = True
+        painter.setPen(QPen(QColor(color), 1.5, style))
+        painter.drawPath(path)
+
+    def _draw_indicator_legend(self, painter: QPainter) -> None:
+        painter.setFont(self.font())
+        painter.setPen(QPen(QColor("#f0b90b"), 2))
+        painter.drawLine(18, 18, 34, 18)
+        painter.setPen(QColor(self.colors["chart_text"]))
+        painter.drawText(QRectF(39, 8, 62, 20), Qt.AlignmentFlag.AlignVCenter, "EMA 20")
+        painter.setPen(QPen(QColor("#4f8ef7"), 2))
+        painter.drawLine(107, 18, 123, 18)
+        painter.setPen(QColor(self.colors["chart_text"]))
+        painter.drawText(
+            QRectF(128, 8, 110, 20),
+            Qt.AlignmentFlag.AlignVCenter,
+            "BB 20, 2σ",
+        )
 
     def _draw_grid(self, painter: QPainter, plot: QRectF, highest: float, lowest: float) -> None:
         painter.setFont(self.font())
