@@ -56,12 +56,13 @@ Lựa chọn được lưu cục bộ và áp dụng lại ở lần chạy sau.
 
 Giao diện cho phép chọn riêng chiến thuật **short_p** hoặc **long_p** và bật/tắt các
 khung nến 1m, 3m, 5m, 15m, 1h, 4h (mặc định bật cả sáu). Tín hiệu trên bất kỳ khung
-đang bật nào cũng có thể vào lệnh; mỗi nến đã đóng chỉ được đánh giá một lần.
-**short_p** yêu cầu high nến mới không vượt high nến trước quá 1%, râu trên ít nhất
-gấp đôi thân nến, và giá đóng nằm trong 25% thấp nhất của biên độ. **long_p** yêu cầu
-nến mới quét xuống dưới low nến trước, râu dưới ít nhất gấp đôi thân nến, và giá đóng
-nằm trong 25% cao nhất. Telegram ghi chiến thuật và khung nến của tín hiệu vào lệnh;
-thông báo bắt đầu quét cũng liệt kê các khung đang bật.
+đang bật nào cũng có thể vào lệnh. Chiến thuật kiểm tra nến đang chạy mỗi vòng quét;
+nến trước đã đóng chỉ dùng làm mốc so sánh. Sau khi phát tín hiệu, cùng một nến không
+phát tín hiệu lần nữa. **short_p** yêu cầu high nến hiện tại không vượt high nến trước
+quá 1%, có râu trên ít nhất gấp đôi thân nến, và giá hiện tại nằm trong 25% thấp nhất
+của biên độ. **long_p** yêu cầu low nến hiện tại thấp hơn low nến trước, râu dưới ít
+nhất gấp đôi thân nến, và giá hiện tại nằm trong 25% cao nhất. Telegram ghi chiến thuật
+và khung nến của tín hiệu vào lệnh; thông báo bắt đầu quét cũng liệt kê các khung đang bật.
 
 Tab **Thống kê chiến thuật** tổng hợp riêng theo chiến thuật, khung nến và
 Simulation/Testnet trong phiên ứng dụng hiện tại; mỗi dòng cho biết `short_p` hoặc
